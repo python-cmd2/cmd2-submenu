@@ -43,7 +43,7 @@ class ThirdLevel(cmd2.Cmd):
 class SecondLevel(cmd2.Cmd):
     """To be used as a second level command class. """
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.prompt = '2ndLevel '
         self.top_level_attr = None
         self.second_level_attr = 987654321
@@ -77,7 +77,7 @@ class TopLevel(cmd2.Cmd):
     """To be used as the main / top level command class that will contain other submenus."""
 
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.prompt = 'TopLevel '
         self.top_level_attr = 123456789
 
