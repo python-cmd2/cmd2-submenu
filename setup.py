@@ -10,11 +10,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-VERSION='0.1.0'
-
 setuptools.setup(
     name='cmd2-submenu',
-    version=VERSION,
+    use_scm_version=True,
     description='A nested submenu system for cmd2',
     long_description=long_description,
     keywords='cmd2 plugin submenu',
@@ -27,7 +25,8 @@ setuptools.setup(
     packages=['cmd2_submenu'],
 
     python_requires='>=3.4',
-    install_requires=['cmd2 >= 0.9.0, <=2'],
+    install_requires=['cmd2 >= 0.9.4, <=2'],
+    setup_requires=['setuptools_scm'],
 
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -45,6 +44,6 @@ setuptools.setup(
     # dependencies for development and testing
     # $ pip install -e .[dev]
     extras_require={
-        'dev': ['pytest']
+        'dev': ['setuptools_scm', 'pytest', 'invoke']
     },
 )
