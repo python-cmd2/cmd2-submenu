@@ -10,8 +10,8 @@ from unittest import mock
 
 from cmd2 import cmd2
 import cmd2_submenu
-from conftest import run_cmd, StdOut, normalize
-
+from conftest import run_cmd, normalize
+from cmd2.utils import StdSim
 
 class SecondLevelB(cmd2.Cmd):
     """To be used as a second level command class. """
@@ -88,32 +88,32 @@ class SubmenuApp(cmd2.Cmd):
 @pytest.fixture
 def submenu_app():
     app = SubmenuApp()
-    app.stdout = StdOut()
-    second_level_cmd.stdout = StdOut()
-    second_level_b_cmd.stdout = StdOut()
+    app.stdout = StdSim(app.stdout)
+    second_level_cmd.stdout = StdSim(app.stdout)
+    second_level_b_cmd.stdout = StdSim(app.stdout)
     return app
 
 
 @pytest.fixture
 def secondlevel_app():
     app = SecondLevel()
-    app.stdout = StdOut()
+    app.stdout = StdSim(app.stdout)
     return app
 
 
 @pytest.fixture
 def secondlevel_app_b():
     app = SecondLevelB()
-    app.stdout = StdOut()
+    app.stdout = StdSim(app.stdout)
     return app
 
 def run_submenu_cmd(app, second_level_app, cmd):
-    """ Clear StdOut buffers, run the command, extract the buffer contents."""
+    """ Clear StdSim buffers, run the command, extract the buffer contents."""
     app.stdout.clear()
     second_level_app.stdout.clear()
     app.onecmd_plus_hooks(cmd)
-    out1 = app.stdout.buffer
-    out2 = second_level_app.stdout.buffer
+    out1 = app.stdout.getvalue()
+    out2 = second_level_app.stdout.getvalue()
     app.stdout.clear()
     second_level_app.stdout.clear()
     return normalize(out1), normalize(out2)

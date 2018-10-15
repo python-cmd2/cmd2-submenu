@@ -1,20 +1,5 @@
 #
 # coding=utf-8
-
-class StdOut(object):
-    """ Toy class for replacing self.stdout in cmd2.Cmd instances for unit testing. """
-    def __init__(self):
-        self.buffer = ''
-
-    def write(self, s):
-        self.buffer += s
-
-    def read(self):
-        raise NotImplementedError
-
-    def clear(self):
-        self.buffer = ''
-
 def normalize(block):
     """ Normalize a block of text to perform comparison.
 
@@ -27,9 +12,9 @@ def normalize(block):
 
 
 def run_cmd(app, cmd):
-    """ Clear StdOut buffer, run the command, extract the buffer contents, """
+    """ Clear StdSim buffer, run the command, extract the buffer contents, """
     app.stdout.clear()
     app.onecmd_plus_hooks(cmd)
-    out = app.stdout.buffer
+    out = app.stdout.getvalue()
     app.stdout.clear()
     return normalize(out)

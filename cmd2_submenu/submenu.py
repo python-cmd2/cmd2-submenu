@@ -183,7 +183,7 @@ class AddSubmenu(object):
                 _self.display_matches = copy.copy(submenu.display_matches)
 
         original_do_help = cmd_obj.do_help
-        original_complete_help = cmd_obj.complete_help
+        original_complete_help_command = cmd_obj.complete_help_command
 
         def help_submenu(_self, line):
             """
@@ -209,7 +209,7 @@ class AddSubmenu(object):
                     endidx - line.index(tokens[1]),
                 )
             else:
-                return original_complete_help(_self, text, line, begidx, endidx)
+                return original_complete_help_command(_self, text, line, begidx, endidx)
 
         if self.create_subclass:
             class _Cmd(cmd_obj):
