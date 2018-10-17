@@ -170,7 +170,10 @@ class AddSubmenu(object):
                 # Reset the submenu's tab completion parameters
                 submenu.allow_appended_space = True
                 submenu.allow_closing_quote = True
+                submenu.completion_header = ''
                 submenu.display_matches = []
+                submenu.matches_delimited = False
+                submenu.matches_sorted = False
 
                 return _complete_from_cmd(submenu, text, line, begidx, endidx)
             finally:
@@ -180,7 +183,10 @@ class AddSubmenu(object):
                 # Pass the submenu's tab completion parameters back up to the menu that called complete()
                 _self.allow_appended_space = submenu.allow_appended_space
                 _self.allow_closing_quote = submenu.allow_closing_quote
+                _self.completion_header = submenu.completion_header
                 _self.display_matches = copy.copy(submenu.display_matches)
+                _self.matches_delimited = submenu.matches_delimited
+                _self.matches_sorted = submenu.matches_sorted
 
         original_do_help = cmd_obj.do_help
         original_complete_help_command = cmd_obj.complete_help_command
